@@ -6,10 +6,12 @@ class QuartettGame
     #pragma warning disable CS0162
     public static string blatt = "A1A2A3A4B1B2B3B4C1C2C3C4D1D2D3D4E1E2E3E4F1F2F3F4G1G2G3G4H1H2H3H4";
     public static string kartenDesSpielers = "";
-    public static int SPunkte = 0;
+    public static int sPunkte = 0;
     public static string kartenDesGegners = "";
-    public static int CPunkte = 0;
-    public static int TurnCounter = 15; //Maximale Züge bevor auswertung
+    public static int cPunkte = 0;
+    public static int regTurnCounter = 15; //Maximale Züge bevor auswertung
+    public static int extraTurns = 5;
+    public static string gewinner = "";
 
 
     static void Main()
@@ -18,7 +20,7 @@ class QuartettGame
         PullC(4);
         HandOut(7);
         Console.WriteLine(blatt);
-        for (int i = 0; i < TurnCounter; i++)
+        for (int i = 0; i < regTurnCounter; i++)
         {
             Turn(0); // 0 = Player, 1 = Gegner
             Turn(1);
@@ -28,9 +30,9 @@ class QuartettGame
                 WinGetScore(0, Letter);
                 WinGetScore(1, Letter);
             }  
-            if (SPunkte == 4 || CPunkte == 4) {
-                Console.WriteLine("Der Punktestand ist: " + SPunkte + " : " + CPunkte);
-                if (SPunkte == 4)
+            if (sPunkte == 4 || cPunkte == 4) {
+                Console.WriteLine("Der Punktestand ist: " + sPunkte + " : " + cPunkte);
+                if (sPunkte == 4)
                 {
                     Console.WriteLine("Du hast gewonnen");
                 }
@@ -41,33 +43,19 @@ class QuartettGame
             }
             else 
             {
-                Console.WriteLine("Der Punktestand ist: " + SPunkte + " : " + CPunkte + " Willst du weiterspielen? (Ja/Nein)");
+                Console.WriteLine("Der Punktestand ist: " + sPunkte + " : " + cPunkte + " Willst du weiterspielen? (Ja/Nein) Keine Eingabe wird als Nein gewertet.");
                 string Answer = Console.ReadLine()?.ToUpper() ?? "";
                 if (Answer == "Ja")
                 {
-                    AddTurns(5); //Anpassbar auf gewünschte Anzahl an extra Zügen
+                    AddTurns(extraTurns); //Anpassbar auf gewünschte Anzahl an extra Zügen
                 }
                 else if (Answer == "Nein")
                 {
-                    if (SPunkte > CPunkte)
-                    {
-                        Console.WriteLine("Du hast gewonnen");
-                    }
-                    else if (SPunkte < CPunkte)
-                    {
-                        Console.WriteLine("Der Gegner hat gewonnen");
-                    }
+                    Winner();
                 }
                 else
                 {
-                    if (SPunkte > CPunkte)
-                    {
-                        Console.WriteLine("Du hast gewonnen");
-                    }
-                    else if (SPunkte < CPunkte)
-                    {
-                        Console.WriteLine("Der Gegner hat gewonnen");
-                    }
+                    Winner();
                 }
             }
         }   
@@ -93,7 +81,7 @@ class QuartettGame
 
     public static string AddTurns(int NOTurns)
     {
-        TurnCounter += NOTurns;
+        regTurnCounter += NOTurns;
         return "Das Spiel geht noch weiter. Noch " + NOTurns + " Züge.";
     }
 
@@ -166,8 +154,8 @@ class QuartettGame
                         kartenDesSpielers = kartenDesSpielers.Remove(indexOfLetter, 1);
                     }
                 }
-                SPunkte++;
-                Console.WriteLine("Du hast einen Punkt bekommen. Aktueller Punktestand: " + SPunkte + " : " + CPunkte);
+                sPunkte++;
+                Console.WriteLine("Du hast einen Punkt bekommen. Aktueller Punktestand: " + sPunkte + " : " + cPunkte);
             }
             return "Spieler Punkte";
         }
@@ -184,8 +172,8 @@ class QuartettGame
                         kartenDesGegners = kartenDesGegners.Remove(indexOfLetter, 1);
                     }
                 }
-                CPunkte++;
-                Console.WriteLine("Der Gegner hat einen Punkt bekommen. Aktueller Punktestand: " + SPunkte + " : " + CPunkte);
+                cPunkte++;
+                Console.WriteLine("Der Gegner hat einen Punkt bekommen. Aktueller Punktestand: " + sPunkte + " : " + cPunkte);
             }
             return "Gegner Points";
         }
@@ -193,6 +181,24 @@ class QuartettGame
         {
             Console.WriteLine("TurnID not valid");
             return "TurnID not valid";
+        }
+    }
+    public static string Winner()
+    {
+        if (sPunkte > cPunkte)
+        {
+            gewinner = "Spieler";
+            return gewinner;
+        }
+        else if (sPunkte < cPunkte)
+        {
+            gewinner = "Gegner";
+            return gewinner;
+        }
+        else 
+        {
+            gewinner = "None";
+            return gewinner;
         }
     }
 }
