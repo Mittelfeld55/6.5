@@ -25,11 +25,10 @@ class QuartettGame
             List <string> Letters = new List<string> {"A", "B", "C", "D", "E", "F", "G", "H"};
             foreach (string Letter in Letters)
             {
-                WinGetValue(0, Letter);
-                WinGetValue(1, Letter);
-            }        
-            if (SPunkte == 4 ^ CPunkte == 4) // Ich mache das so, damit ich ein Xor Gate verwende
-            {
+                WinGetScore(0, Letter);
+                WinGetScore(1, Letter);
+            }  
+            if (SPunkte == 4 || CPunkte == 4) {
                 Console.WriteLine("Der Punktestand ist: " + SPunkte + " : " + CPunkte);
                 if (SPunkte == 4)
                 {
@@ -61,7 +60,6 @@ class QuartettGame
                 }
                 else
                 {
-                    Console.WriteLine("Bitte gib Ja oder Nein ein");
                     if (SPunkte > CPunkte)
                     {
                         Console.WriteLine("Du hast gewonnen");
@@ -153,7 +151,7 @@ class QuartettGame
         }
     }
 
-    public static string WinGetValue(int TurnID, string LetterToCheck)
+    public static string WinGetScore(int TurnID, string LetterToCheck)
     {
         if (TurnID == 0)
         {
@@ -198,17 +196,14 @@ class QuartettGame
         }
     }
 }
-
 class Helper 
-{
-    //Shuffle the Cards
+{ //Shuffle the Cards
     public static string shuffle(string blatt, int noOfShuffles)
     {
         var random = new Random();
         var noOfCards = blatt.Length / 2;
         for (int i = 0; i < noOfShuffles; i++)
         {
-
             var frontIndex = random.Next(0, noOfCards / 3);
             if ((frontIndex % 4 == 0) && (frontIndex != 0))
             {
