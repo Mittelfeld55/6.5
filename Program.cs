@@ -11,7 +11,7 @@ class QuartettGame
     public static string kartenDesGegners = "";
     public static int cPunkte = 0;
     public static int regTurnCounter = 15; //Maximale Züge bevor auswertung
-    public static int extraTurns = 5;
+    public static int extraTurns = 5 ;
     static void Main()
     {
         List <string> Letters = new List<string> {"A", "B", "C", "D", "E", "F", "G", "H"};
