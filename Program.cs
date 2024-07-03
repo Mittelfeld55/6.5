@@ -1,10 +1,10 @@
-﻿﻿using System.Security;
+﻿using System.Security;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 
 class QuartettGame 
 {
-    #pragma warning disable CS0162
+    #pragma warning disable
     public static string blatt = "A1A2A3A4B1B2B3B4C1C2C3C4D1D2D3D4E1E2E3E4F1F2F3F4G1G2G3G4H1H2H3H4";
     public static string kartenDesSpielers = "";
     public static int sPunkte = 0;
@@ -92,6 +92,7 @@ class QuartettGame
                     kartenDesSpielers += benoetigteKarte;
                     kartenDesGegners = kartenDesGegners.Replace(benoetigteKarte, "");
                     Console.WriteLine("Deine Karten: " + kartenDesSpielers + "   " + kartenDesSpielers.Length/2 + " Karten");
+                    return "PsslayerTurn";
                 }
                 else
                 {
@@ -190,6 +191,7 @@ class QuartettGame
         }
         }
     }
+    #pragma warning enable
 }
 class Helper 
 { //Shuffle the Cards
