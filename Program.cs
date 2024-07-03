@@ -22,27 +22,30 @@ class QuartettGame
         for (int i = 0; i < regTurnCounter; i++)
         {
             Turn(0); // 0 = Player, 1 = Gegner
-            Turn(1);
             foreach (string Letter in Letters)
             {
                 WinGetScore(0, Letter);
-                WinGetScore(1, Letter);
             } 
-           Console.WriteLine("Der Punktestand ist: " + sPunkte + " : " + cPunkte + " Willst du weiterspielen? (Ja/Nein) Keine Eingabe wird als Nein gewertet.");
-            string Answer = Console.ReadLine()?.ToUpper() ?? "";
-            if (Answer == "Ja")
+            Turn(1);
+            foreach (string Letter in Letters)
             {
-                AddTurns(extraTurns); //Anpassbar auf gewünschte Anzahl an extra Zügen
-            }
-            else if (Answer == "Nein")
-            {
-                Winner();
-            }
-            else
-            {
-                Winner();
-            }
-        }   
+                WinGetScore(1, Letter);
+            }   
+        }
+        Console.WriteLine("Der Punktestand ist: " + sPunkte + " : " + cPunkte + " Willst du weiterspielen? (Ja/Nein) Keine Eingabe wird als Nein gewertet.");
+        string Answer = Console.ReadLine()?.ToUpper() ?? "";
+        if (Answer == "Ja")
+        {
+            AddTurns(extraTurns); //Anpassbar auf gewünschte Anzahl an extra Zügen
+        }
+        else if (Answer == "Nein")
+        {
+            Winner();
+        }
+        else
+        {
+            Winner();
+        }  
     }
     public static string PullC(int NumberOfCards) 
     {
@@ -75,6 +78,11 @@ class QuartettGame
         {
             Console.WriteLine("\nDeine Karten: " + kartenDesSpielers + "   " + kartenDesSpielers.Length/2 + " Karten. \nWelche Karte brauchst du? (Z.B. A1) Versuche nicht zwei Karten zu nennen.");
             string input = Console.ReadLine()?.ToUpper() ?? "";
+            if (kartenDesSpielers.Contains(input))
+            {
+                Console.WriteLine("Du hast die Karte bereits");
+                Turn(0);
+            }
             string benoetigteKarte = input.Length >= 2 ? input.Substring(0, 2) : "";
             if (kartenDesSpielers.Contains(benoetigteKarte.Substring(0,1))) 
             {
