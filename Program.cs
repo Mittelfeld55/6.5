@@ -1,5 +1,6 @@
 ﻿﻿using System.Security;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 
 class QuartettGame 
 {
@@ -13,6 +14,7 @@ class QuartettGame
     public static int extraTurns = 5;
     static void Main()
     {
+        List <string> Letters = new List<string> {"A", "B", "C", "D", "E", "F", "G", "H"};
         blatt = Helper.shuffle(blatt, 3000);
         PullC(4);
         HandOut(7);
@@ -21,7 +23,6 @@ class QuartettGame
         {
             Turn(0); // 0 = Player, 1 = Gegner
             Turn(1);
-            List <string> Letters = new List<string> {"A", "B", "C", "D", "E", "F", "G", "H"};
             foreach (string Letter in Letters)
             {
                 WinGetScore(0, Letter);
