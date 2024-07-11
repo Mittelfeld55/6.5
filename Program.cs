@@ -1,8 +1,4 @@
-﻿using System.Security;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-
-class QuartettGame 
+﻿class QuartettGame 
 {
     #pragma warning disable
     public static string blatt = "A1A2A3A4B1B2B3B4C1C2C3C4D1D2D3D4E1E2E3E4F1F2F3F4G1G2G3G4H1H2H3H4";
@@ -192,23 +188,4 @@ class QuartettGame
         }
     }
     #pragma warning enable
-}
-class Helper 
-{ //Shuffle the Cards
-    public static string shuffle(string blatt, int noOfShuffles)
-    {
-        var random = new Random();
-        var noOfCards = blatt.Length / 2;
-        for (int i = 0; i < noOfShuffles; i++)
-        {
-            var frontIndex = random.Next(0, noOfCards / 3);
-            if ((frontIndex % 4 == 0) && (frontIndex != 0))
-            {
-                frontIndex--;
-            }
-            var rearIndex = random.Next(noOfCards / 3 * 2, noOfCards);
-            blatt = blatt.Substring(0, frontIndex * 2) + blatt.Substring(rearIndex * 2) + blatt.Substring(frontIndex * 2, (rearIndex - frontIndex) * 2);
-        }
-        return blatt;
-    }
 }
